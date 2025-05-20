@@ -173,7 +173,8 @@ async function enviarFormulario() {
     console.log('[enviarFormulario] Gênero coletado:', genero);
     console.log('[enviarFormulario] Cenário coletado:', cenario);
 
-    if (personagens.length < 1) { // Validação: mínimo de 1 personagem
+    // ALTERAÇÃO CRUCIAL AQUI: Mínimo de 1 personagem
+    if (personagens.length < 1) { 
         alert('Por favor, preencha pelo menos um campo de personagem para gerar uma fanfic!');
         console.warn('[enviarFormulario] Validação falhou: Menos de 1 personagem.');
         divResposta.classList.add('hidden');
@@ -248,6 +249,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Event listener adicionado ao botão "Limpar Campos".');
 
     // Inicializa a visibilidade dos botões de remover
+    // Garante que o primeiro personagem é criado na inicialização se ainda não existir
+    if (divPersonagens.querySelectorAll('.personagem-row').length === 0) {
+        divPersonagens.appendChild(criarLinhaPersonagem());
+    }
     atualizarBotoesRemover();
     console.log('atualizarBotoesRemover chamado na inicialização.');
 
