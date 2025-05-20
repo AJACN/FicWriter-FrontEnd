@@ -6,9 +6,10 @@ const divResposta = document.getElementById('response');
 const btnGerarFanfic = document.getElementById('generate-fanfic-btn');
 const btnLimparCampos = document.getElementById('clear-personagens-btn');
 const btnAdicionarPersonagem = document.getElementById('add-personagem-btn'); // Referência ao novo botão
-// Elementos para Gênero e Cenário
+// Elementos para Gênero, Cenário e Idioma
 const inputGenero = document.getElementById('genero');
 const inputCenario = document.getElementById('cenario');
+const selectIdioma = document.getElementById('idioma'); // Novo elemento para o idioma
 
 // Array de papéis pré-definidos
 const papeisDisponiveis = [
@@ -97,9 +98,10 @@ function limparCamposPersonagens() {
         }
     });
 
-    // Limpa os campos de gênero e cenário
+    // Limpa os campos de gênero e cenário e redefine o idioma para Português
     inputGenero.value = '';
     inputCenario.value = '';
+    selectIdioma.value = 'Português'; // Define o idioma padrão
 
     atualizarBotoesRemover(); // Atualiza os botões de remover após a limpeza
 }
@@ -168,10 +170,12 @@ async function enviarFormulario() {
 
     const genero = inputGenero.value.trim();
     const cenario = inputCenario.value.trim();
+    const idioma = selectIdioma.value; // Coleta o valor do select de idioma
 
     console.log('[enviarFormulario] Personagens coletados:', personagens);
     console.log('[enviarFormulario] Gênero coletado:', genero);
     console.log('[enviarFormulario] Cenário coletado:', cenario);
+    console.log('[enviarFormulario] Idioma coletado:', idioma);
 
     // ALTERAÇÃO CRUCIAL AQUI: Mínimo de 1 personagem
     if (personagens.length < 1) { 
@@ -186,7 +190,8 @@ async function enviarFormulario() {
     const dados = {
         personagens: personagens,
         genero: genero,
-        cenario: cenario
+        cenario: cenario,
+        idioma: idioma // Inclui o idioma nos dados a serem enviados
     };
     console.log('[enviarFormulario] Dados preparados para API:', dados);
 
@@ -261,4 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     botoesRemoverIniciais.forEach(botao => {
         botao.addEventListener('click', () => removerPersonagem(botao));
     });
+
+    // Define o valor inicial do idioma para Português
+    selectIdioma.value = 'Português';
 });
