@@ -127,8 +127,7 @@ function renderizarFanfic(dadosFanfic) {
     dadosFanfic.capitulos.forEach((capitulo, index) => {
         htmlFanfic += `
             <div class="mb-6">
-                <h3 class="text-xl font-semibold mb-2 text-gray-700">Capítulo ${index + 1}: ${capitulo.titulo}</h3>
-                ${capitulo.historia.map(paragrafo => `<p class="text-gray-700 mb-2">${paragrafo}</p>`).join('')}
+                <h3 class="text-xl font-semibold mb-2 text-gray-700">${capitulo.titulo}</h3> ${capitulo.historia.map(paragrafo => `<p class="text-gray-700 mb-2">${paragrafo}</p>`).join('')}
             </div>
         `;
     });
