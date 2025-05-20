@@ -32,7 +32,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 <option value="Vilão Secundário">Vilão Secundário</option>
                 <option value="Apoio">Apoio</option>
                 <option value="Figurante">Figurante</option>
-                </select>
+                <option value="Guardião">Guardião</option>
+                <option value="Mágico">Mágico</option>
+                <option value="Cientista">Cientista</option>
+                <option value="Detetive">Detetive</option>
+                <option value="Explorador">Explorador</option>
+                <option value="Comerciante">Comerciante</option>
+                <option value="Rei/Rainha">Rei/Rainha</option>
+                <option value="Príncipe/Princesa">Príncipe/Princesa</option>
+                <option value="Soldado">Soldado</option>
+                <option value="Camponês">Camponês</option>
+                <option value="Criatura Mítica">Criatura Mítica</option>
+                <option value="Robô/IA">Robô/IA</option>
+                <option value="Viajante do Tempo">Viajante do Tempo</option>
+                <option value="Super-herói">Super-herói</option>
+                <option value="Supervilão">Supervilão</option>
+                <option value="Músico">Músico</option>
+                <option value="Artista">Artista</soption>
+                <option value="Atleta">Atleta</option>
+                <option value="Estudante">Estudante</option>
+                <option value="Professor">Professor</option>
+                <option value="Mestre de Guilda">Mestre de Guilda</option>
+                <option value="Chefe de Estado">Chefe de Estado</option>
+                <option value="Deus/Deusa">Deus/Deusa</option>
+            </select>
             <input type="text" class="personagem-name-input p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Nome do Personagem">
             <button class="remove-personagem-btn bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-3 rounded-md text-sm transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Remover</button>
             <div class="personagem-description-wrapper">
@@ -96,11 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const personagens = [];
         document.querySelectorAll('.personagem-row').forEach(linha => {
-            const role = linha.querySelector('.personagem-role-select').value; // Restaura a captura do papel
+            const role = linha.querySelector('.personagem-role-select').value;
             const name = linha.querySelector('.personagem-name-input').value;
             const description = linha.querySelector('.personagem-description-input').value;
 
-            if (role && name) { // Agora exige papel e nome
+            if (role && name) { // Exige papel e nome
                 personagens.push({ role, name, description });
             }
         });
@@ -122,8 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Erro ao gerar a fanfic.');
+                // Tenta ler a resposta como JSON se ela não for OK, para pegar a mensagem de erro
+                const errorText = await response.text();
+                let errorMessage = `Erro do servidor: ${response.status}`;
+                try {
+                    const errorJson = JSON.parse(errorText);
+                    errorMessage = errorJson.error || errorMessage;
+                } catch (e) {
+                    // Se não for JSON, exibe o texto bruto (que pode ser uma página de erro HTML)
+                    errorMessage = `Erro inesperado: ${errorText.substring(0, 100)}...`; 
+                }
+                throw new Error(errorMessage);
             }
 
             const fanficData = await response.json();
