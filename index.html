@@ -8,78 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* Define a animação de gradiente personalizada */
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        /* Aplica a animação ao corpo do documento */
         body {
             background: linear-gradient(270deg, #f7f5eb, #ede8d9, #e0d8c0);
             background-size: 600% 600%;
             animation: gradientAnimation 15s ease infinite;
         }
-        /* Estilos adicionais para o textarea de descrição */
-        .personagem-description-input {
-            resize: vertical; /* Permite redimensionar verticalmente */
-            min-height: 40px; /* Altura mínima para o campo */
-            max-height: 120px; /* Altura máxima para evitar que ocupe demais */
-        }
-        /* Estilos para a linha de personagem usando Flexbox */
-        .personagem-row {
-            display: flex;
-            flex-wrap: wrap; /* Permite que os itens quebrem linha */
-            gap: 12px; /* Espaçamento entre os itens */
-            align-items: center;
-            padding: 1rem; /* Adicionado padding para melhor visual */
-            border: 1px solid #e5e7eb; /* Corrigido border para cor do Tailwind */
-            border-radius: 0.5rem; /* Corrigido border-radius para valor do Tailwind */
-            position: relative; /* Necessário para posicionamento absoluto de elementos internos, se houver */
-        }
-        /* Faz os itens dentro de .personagem-row crescerem para preencher o espaço */
-        .personagem-row > * {
-            flex-grow: 1;
-        }
-        /* Base e largura mínima para os inputs de papel e nome */
-        .personagem-role-select,
-        .personagem-name-input {
-            flex-basis: 30%; /* Base para os inputs de nome e papel */
-            min-width: 120px; /* Garante que não fiquem muito pequenos */
-        }
-        /* A descrição ocupa toda a largura na nova linha */
-        .personagem-description-wrapper { /* Criamos um wrapper para a descrição */
-             flex-basis: 100%; /* Ocupa toda a largura na nova linha */
-        }
-        .remove-personagem-btn {
-            flex-basis: auto; /* Ajusta-se ao conteúdo */
-            margin-left: auto; /* Empurra o botão para a direita se houver espaço */
-            align-self: flex-start; /* Alinha o botão ao topo da linha */
-        }
-
-        /* Ajuste para telas menores (abaixo de 640px, breakpoint 'sm' do Tailwind) */
-        @media (max-width: 639px) { /* Use 639px para ser consistente com 'sm' do Tailwind */
-            .personagem-row {
-                flex-direction: column; /* Empilha os itens verticalmente */
-                align-items: stretch; /* Estica os itens para a largura total */
-            }
-            .personagem-role-select,
-            .personagem-name-input,
-            .remove-personagem-btn,
-            .personagem-description-wrapper { /* Incluído o wrapper da descrição */
-                width: 100%; /* Ocupa a largura total em telas pequenas */
-                flex-basis: auto;
-            }
-            .remove-personagem-btn {
-                margin-left: 0; /* Remove a margem automática em telas pequenas */
-            }
-        }
     </style>
 </head>
-<body class="font-sans min-h-screen flex items-center justify-center py-16">
-    
+<body class="font-sans min-h-screen flex items-center justify-center bg-gray-100 py-16">
     <div class="container max-w-lg mx-auto bg-white rounded-xl shadow-xl overflow-hidden border border-gray-200">
         <div class="bg-teal-50 py-8 px-10 text-center">
             <h1 class="font-playfair-display text-3xl font-semibold text-teal-800 tracking-tight">Biblioteca Mágica de Fanfics</h1>
@@ -95,7 +37,21 @@
             </div>
 
             <div id="personagens" class="space-y-3">
+                <div class="personagem-row flex items-center space-x-3">
+                    <select class="personagem-role-select p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700">
+                        <option value="">Escolha o Papel</option>
+                        <option value="Protagonista">Protagonista</option>
+                        <option value="Co-protagonista">Co-protagonista</option>
+                        <option value="Antagonista">Antagonista</option>
+                        <option value="Mentor">Mentor</option>
+                        <option value="Aliado">Aliado</option>
+                        <option value="Vilão Secundário">Vilão Secundário</option>
+                        <option value="Figurante">Figurante</option>
+                    </select>
+                    <input type="text" class="personagem-name-input flex-1 p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Nome do Personagem">
+                    <button class="remove-personagem-btn bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-3 rounded-md text-sm transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Remover</button>
                 </div>
+            </div>
 
             <div class="space-y-3">
                 <div>
@@ -143,19 +99,19 @@
             </div>
 
             <div class="mt-4 flex justify-center space-x-3">
-                <button id="add-personagem-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-1 flex items-center">
+                <button id="add-personagem-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1 -ml-1">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 01-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
                     Adicionar Personagem
                 </button>
-                <button id="generate-fanfic-btn" class="bg-amber-400 hover:bg-amber-500 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1 flex items-center">
+                <button id="generate-fanfic-btn" class="bg-amber-400 hover:bg-amber-500 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1 -ml-1">
                         <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 5.656L10 10.656l1.172-1.172a4 4 0 015.656-5.656 4 4 0 11-5.656 5.656L10 11.344l-1.172 1.172a4 4 0 01-5.656-5.656z" clip-rule="evenodd" />
                     </svg>
                     Gerar Conto
                 </button>
-                <button id="clear-personagens-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 flex items-center">
+                <button id="clear-personagens-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1 -ml-1">
                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h12a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1zm3 1a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
                     </svg>
