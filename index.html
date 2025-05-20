@@ -38,16 +38,29 @@
 
             <div id="personagens" class="space-y-3">
                 <div class="personagem-row flex items-center space-x-3">
-                    <input type="text" class="personagem personagem-input flex-1 p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Personagem Principal">
+                    <select class="personagem-role-select p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700">
+                        <option value="">Escolha o Papel</option>
+                        <option value="Protagonista">Protagonista</option>
+                        <option value="Co-protagonista">Co-protagonista</option>
+                        <option value="Antagonista">Antagonista</option>
+                        <option value="Mentor">Mentor</option>
+                        <option value="Aliado">Aliado</option>
+                        <option value="Vilão Secundário">Vilão Secundário</option>
+                        <option value="Figurante">Figurante</option>
+                    </select>
+                    <input type="text" class="personagem-name-input flex-1 p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Nome do Personagem">
                     <button class="remove-personagem-btn bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-3 rounded-md text-sm transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Remover</button>
                 </div>
-                <div class="personagem-row flex items-center space-x-3">
-                    <input type="text" class="personagem personagem-input flex-1 p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Co-protagonista">
-                    <button class="remove-personagem-btn bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-3 rounded-md text-sm transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Remover</button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label for="genero" class="block text-sm font-medium text-gray-700 mb-1">Gênero da Fanfic (opcional):</label>
+                    <input type="text" id="genero" class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Ex: Fantasia, Ficção Científica, Romance">
                 </div>
-                <div class="personagem-row flex items-center space-x-3">
-                    <input type="text" class="personagem personagem-input flex-1 p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Antagonista">
-                    <button class="remove-personagem-btn bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-3 rounded-md text-sm transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Remover</button>
+                <div>
+                    <label for="cenario" class="block text-sm font-medium text-gray-700 mb-1">Cenário (opcional):</label>
+                    <input type="text" id="cenario" class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-teal-400 focus:outline-none text-sm text-gray-700" placeholder="Ex: Uma floresta mágica, Uma cidade futurista">
                 </div>
             </div>
 
@@ -56,7 +69,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1 -ml-1">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 01-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
-                    Adicionar
+                    Adicionar Personagem
                 </button>
                 <button id="generate-fanfic-btn" class="bg-amber-400 hover:bg-amber-500 text-white font-semibold py-2.5 px-4 rounded-md text-sm transition duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-1 -ml-1">
